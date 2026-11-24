@@ -3,32 +3,45 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>نظام إدارة المطعم والرقابة المالية</title>
+  <title>نظام إدارة المطعم والرقابة المالية — أوزبكستان</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #f4f6f9;
+      --bg: #f1f5f9;
       --surface: #ffffff;
       --surface-2: #f8fafc;
       --border: #e2e8f0;
+      --border-strong: #cbd5e1;
       --text: #0f172a;
+      --text-secondary: #334155;
       --muted: #64748b;
-      --primary: #1e3a8a;
-      --primary-hover: #1d4ed8;
-      --accent: #0f766e;
+
+      --primary: #0f4c5c;
+      --primary-hover: #0a3642;
+      --primary-soft: #e6f2f5;
+
+      --accent: #b45309;
+      --accent-soft: #fef3c7;
+
       --purchase: #d97706;
       --purchase-bg: #fef3c7;
-      --expense: #7c3aed;
-      --expense-bg: #ede9fe;
+      --expense: #4f46e5;
+      --expense-bg: #eef2ff;
       --total-out: #be123c;
       --total-out-bg: #ffe4e6;
       --success: #15803d;
       --success-bg: #dcfce7;
+      --warning: #b45309;
+      --warning-bg: #fef3c7;
       --danger: #dc2626;
       --danger-bg: #fee2e2;
+
       --radius: 14px;
-      --shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+      --radius-sm: 10px;
+      --shadow: 0 4px 18px rgba(15, 23, 42, 0.05);
+      --shadow-md: 0 10px 28px rgba(15, 23, 42, 0.08);
     }
 
     * { box-sizing: border-box; font-family: 'Cairo', sans-serif; }
@@ -36,42 +49,58 @@
       margin: 0;
       background: var(--bg);
       color: var(--text);
-      line-height: 1.6;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
     }
 
-    /* Login Screen */
+    /* ================= Login Screen (بدون رابط الخادم) ================= */
     .login-wrap {
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 20px;
-      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+      background: radial-gradient(circle at top right, #16697a 0%, #0f4c5c 45%, #0b192c 100%);
     }
     .login-card {
       width: 100%;
-      max-width: 420px;
+      max-width: 410px;
       background: var(--surface);
-      padding: 32px;
-      border-radius: 18px;
-      box-shadow: 0 20px 45px rgba(0,0,0,0.25);
+      padding: 34px 30px;
+      border-radius: 20px;
+      box-shadow: 0 24px 50px rgba(2, 6, 23, 0.32);
+      border: 1px solid rgba(255,255,255,0.6);
+    }
+    .login-logo {
+      width: 56px;
+      height: 56px;
+      margin: 0 auto 12px;
+      border-radius: 16px;
+      background: var(--primary-soft);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      font-weight: 800;
     }
     .login-card h1 {
       margin: 0 0 6px;
-      font-size: 22px;
+      font-size: 21px;
       color: var(--primary);
       text-align: center;
+      font-weight: 800;
     }
     .login-card p {
-      margin: 0 0 22px;
+      margin: 0 0 24px;
       color: var(--muted);
       font-size: 13px;
       text-align: center;
     }
 
-    /* Top Header & Nav */
+    /* ================= Header & Navigation ================= */
     header {
-      background: linear-gradient(135deg, #0f172a, #1e3a8a);
+      background: linear-gradient(120deg, #0b192c 0%, #0f4c5c 100%);
       color: #fff;
       padding: 14px 24px;
       display: flex;
@@ -82,21 +111,30 @@
       position: sticky;
       top: 0;
       z-index: 40;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+      box-shadow: 0 4px 16px rgba(11, 25, 44, 0.16);
     }
     .brand {
       display: flex;
       align-items: center;
       gap: 10px;
       font-weight: 800;
-      font-size: 18px;
+      font-size: 17px;
     }
     .badge-role {
-      background: rgba(255,255,255,0.16);
-      padding: 3px 10px;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.22);
+      padding: 3px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .date-chip {
+      background: rgba(255,255,255,0.1);
+      padding: 4px 12px;
       border-radius: 999px;
       font-size: 12px;
       font-weight: 600;
+      color: #e2e8f0;
     }
 
     .nav-tabs {
@@ -104,44 +142,48 @@
       border-bottom: 1px solid var(--border);
       padding: 8px 20px;
       display: flex;
-      gap: 8px;
+      gap: 6px;
       overflow-x: auto;
+      scrollbar-width: thin;
     }
     .tab-btn {
       border: 1px solid transparent;
       background: transparent;
       color: var(--muted);
-      padding: 9px 16px;
-      border-radius: 10px;
+      padding: 9px 15px;
+      border-radius: var(--radius-sm);
       font-weight: 700;
-      font-size: 14px;
+      font-size: 13.5px;
       cursor: pointer;
       white-space: nowrap;
-      transition: all 0.2s;
+      transition: all 0.18s ease;
     }
     .tab-btn:hover { background: var(--surface-2); color: var(--text); }
     .tab-btn.active {
       background: var(--primary);
       color: #fff;
-      box-shadow: 0 2px 8px rgba(30, 58, 138, 0.25);
+      box-shadow: 0 3px 10px rgba(15, 76, 92, 0.25);
     }
 
     .container {
-      max-width: 1280px;
+      max-width: 1320px;
       margin: 22px auto;
-      padding: 0 18px 40px;
+      padding: 0 18px 48px;
     }
 
     .section { display: none; }
-    .section.active { display: block; animation: fadeIn 0.25s ease; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+    .section.active { display: block; animation: fadeIn 0.22s ease; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
-    /* Cards & Grid */
+    /* ================= Cards & KPIs ================= */
     .card {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 20px;
+      padding: 20px 22px;
       box-shadow: var(--shadow);
       margin-bottom: 20px;
     }
@@ -157,22 +199,27 @@
     }
     .card-title {
       margin: 0;
-      font-size: 17px;
+      font-size: 16.5px;
       font-weight: 800;
       color: var(--text);
+    }
+    .card-subtitle {
+      margin: 2px 0 0;
+      font-size: 12.5px;
+      color: var(--muted);
     }
 
     .kpi-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(215px, 1fr));
+      gap: 15px;
       margin-bottom: 20px;
     }
     .kpi {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 18px;
+      padding: 17px 18px;
       box-shadow: var(--shadow);
       position: relative;
       overflow: hidden;
@@ -187,23 +234,24 @@
     .kpi.purchase::before { background: var(--purchase); }
     .kpi.expense::before { background: var(--expense); }
     .kpi.total-out {
-      background: linear-gradient(135deg, #fff1f2 0%, #ffffff 100%);
+      background: linear-gradient(145deg, #fff1f2 0%, #ffffff 70%);
       border-color: #fecdd3;
     }
     .kpi.total-out::before { background: var(--total-out); }
     .kpi.profit::before { background: var(--success); }
 
     .kpi-label {
-      font-size: 13px;
+      font-size: 12.5px;
       color: var(--muted);
       font-weight: 700;
       margin-bottom: 6px;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 6px;
     }
     .kpi-value {
-      font-size: 22px;
+      font-size: 20.5px;
       font-weight: 800;
       color: var(--text);
     }
@@ -214,12 +262,12 @@
       margin-top: 6px;
     }
 
-    /* Progress Bar for Combined Expenses */
+    /* Interactive Split Bar & Mini Bars */
     .split-bar-wrap {
       background: var(--surface-2);
       border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 16px;
+      padding: 16px 18px;
       margin-bottom: 20px;
     }
     .split-bar {
@@ -230,8 +278,8 @@
       display: flex;
       margin: 10px 0;
     }
-    .bar-purchases { background: var(--purchase); transition: width 0.4s; }
-    .bar-expenses { background: var(--expense); transition: width 0.4s; }
+    .bar-purchases { background: var(--purchase); transition: width 0.35s ease; }
+    .bar-expenses { background: var(--expense); transition: width 0.35s ease; }
     .split-legend {
       display: flex;
       flex-wrap: wrap;
@@ -248,27 +296,57 @@
       margin-left: 6px;
     }
 
-    /* Forms */
+    .cat-bar-row { margin-bottom: 10px; }
+    .cat-bar-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .cat-track {
+      height: 8px;
+      background: #e2e8f0;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .cat-fill {
+      height: 100%;
+      background: var(--primary);
+      border-radius: 999px;
+      transition: width 0.35s ease;
+    }
+    .cat-fill.pur { background: var(--purchase); }
+    .cat-fill.exp { background: var(--expense); }
+
+    /* ================= Forms & Controls ================= */
     .form-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(185px, 1fr));
       gap: 14px;
       align-items: end;
     }
     .field { display: flex; flex-direction: column; gap: 5px; }
-    .field label { font-size: 13px; font-weight: 700; color: var(--text); }
-    input, select {
+    .field label { font-size: 12.5px; font-weight: 700; color: var(--text-secondary); }
+    input, select, textarea {
       width: 100%;
-      padding: 10px 12px;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      font-size: 14px;
+      padding: 9.5px 12px;
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-sm);
+      font-size: 13.5px;
       background: #fff;
       color: var(--text);
       outline: none;
-      transition: border-color 0.2s;
+      transition: border-color 0.18s, box-shadow 0.18s;
     }
-    input:focus, select:focus { border-color: var(--primary); }
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(15, 76, 92, 0.1);
+    }
+    input.date-invalid {
+      border-color: var(--danger);
+      background: #fff5f5;
+    }
 
     .checkbox-row {
       display: flex;
@@ -276,45 +354,49 @@
       gap: 8px;
       font-size: 13px;
       font-weight: 700;
-      color: var(--purchase);
+      color: var(--primary);
       padding-top: 8px;
+      cursor: pointer;
     }
-    .checkbox-row input { width: auto; }
+    .checkbox-row input { width: auto; cursor: pointer; }
 
-    /* Buttons */
     .btn {
-      padding: 10px 18px;
+      padding: 9.5px 17px;
       border: none;
-      border-radius: 10px;
+      border-radius: var(--radius-sm);
       font-weight: 700;
-      font-size: 14px;
+      font-size: 13.5px;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 6px;
-      transition: all 0.2s;
+      transition: all 0.18s ease;
     }
     .btn-primary { background: var(--primary); color: #fff; }
     .btn-primary:hover { background: var(--primary-hover); }
+    .btn-accent { background: var(--accent); color: #fff; }
+    .btn-accent:hover { background: #92400e; }
     .btn-purchase { background: var(--purchase); color: #fff; }
     .btn-purchase:hover { background: #b45309; }
     .btn-expense { background: var(--expense); color: #fff; }
-    .btn-expense:hover { background: #6d28d9; }
-    .btn-outline { background: #fff; border: 1px solid var(--border); color: var(--text); }
+    .btn-expense:hover { background: #4338ca; }
+    .btn-outline { background: #fff; border: 1px solid var(--border-strong); color: var(--text); }
     .btn-outline:hover { background: var(--surface-2); }
+    .btn-soft { background: var(--primary-soft); color: var(--primary); }
+    .btn-soft:hover { background: #d0e7ed; }
     .btn-danger { background: var(--danger-bg); color: var(--danger); padding: 6px 10px; font-size: 12px; }
     .btn-danger:hover { background: var(--danger); color: #fff; }
 
-    /* Tables */
+    /* ================= Tables & Badges ================= */
     .table-wrap { overflow-x: auto; }
     table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 13.5px;
+      font-size: 13px;
     }
     th, td {
-      padding: 11px 12px;
+      padding: 10.5px 12px;
       text-align: right;
       border-bottom: 1px solid var(--border);
       white-space: nowrap;
@@ -323,26 +405,61 @@
       background: var(--surface-2);
       color: var(--muted);
       font-weight: 800;
-      font-size: 12.5px;
+      font-size: 12px;
     }
     tr:hover td { background: #f8fafc; }
 
     .pill {
       padding: 3px 10px;
       border-radius: 999px;
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 700;
       display: inline-block;
     }
     .pill-purchase { background: var(--purchase-bg); color: #92400e; }
-    .pill-expense { background: var(--expense-bg); color: #5b21b6; }
+    .pill-expense { background: var(--expense-bg); color: #3730a3; }
     .pill-ok { background: var(--success-bg); color: var(--success); }
+    .pill-warn { background: var(--warning-bg); color: var(--warning); }
     .pill-bad { background: var(--danger-bg); color: var(--danger); }
+    .pill-info { background: var(--primary-soft); color: var(--primary); }
 
     .two-col {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
       gap: 20px;
+    }
+
+    .sub-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .sub-tab-btn {
+      padding: 7px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--border-strong);
+      background: var(--surface);
+      color: var(--text-secondary);
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+    }
+    .sub-tab-btn.active {
+      background: var(--primary-soft);
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .info-box {
+      background: var(--primary-soft);
+      border: 1px solid #bae0e8;
+      color: var(--primary);
+      padding: 11px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 12.5px;
+      font-weight: 600;
+      margin-bottom: 14px;
     }
 
     /* Toast */
@@ -354,73 +471,88 @@
       color: #fff;
       padding: 12px 20px;
       border-radius: 12px;
-      font-size: 14px;
+      font-size: 13.5px;
       font-weight: 700;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      box-shadow: var(--shadow-md);
       z-index: 999;
       display: none;
+      max-width: 380px;
     }
     #toast.error { background: var(--danger); }
     #toast.success { background: var(--success); }
+    #toast.warn { background: var(--warning); }
   </style>
 </head>
 <body>
 
-<!-- شاشة تسجيل الدخول -->
+<!-- ==================== شاشة تسجيل الدخول (بدون إظهار اسم/رابط الخادم) ==================== -->
 <div id="loginScreen" class="login-wrap">
   <div class="login-card">
-    <h1>🍽️ نظام الرقابة والتكاليف</h1>
-    <p>إدارة المشتريات، المصروفات، الإغلاق اليومي وتحليل الأداء</p>
-    <div class="field" style="margin-bottom: 12px;">
-      <label>رابط الخادم (Google Apps Script Web App URL)</label>
-      <input type="url" id="apiEndpointInput" placeholder="https://script.google.com/macros/s/.../exec" dir="ltr" />
-    </div>
-    <div class="field" style="margin-bottom: 12px;">
+    <div class="login-logo">🍽️</div>
+    <h1>نظام إدارة المطعم والرقابة</h1>
+    <p>منصة متكاملة للمشتريات، المصروفات، المخزون، والموظفين</p>
+    <div class="field" style="margin-bottom: 13px;">
       <label>اسم الدخول</label>
-      <input type="text" id="loginUser" placeholder="owner أو manager" />
+      <input type="text" id="loginUser" placeholder="أدخل اسم المستخدم" autocomplete="username" />
     </div>
-    <div class="field" style="margin-bottom: 18px;">
+    <div class="field" style="margin-bottom: 20px;">
       <label>كلمة المرور</label>
-      <input type="password" id="loginPass" placeholder="••••••••" />
+      <input type="password" id="loginPass" placeholder="••••••••" autocomplete="current-password" />
     </div>
-    <button class="btn btn-primary" style="width: 100%;" onclick="doLogin()">تسجيل الدخول</button>
+    <button class="btn btn-primary" style="width: 100%; padding: 11px;" onclick="doLogin()">تسجيل الدخول</button>
   </div>
 </div>
 
-<!-- التطبيق الرئيسي -->
+<!-- ==================== التطبيق الرئيسي ==================== -->
 <div id="appScreen" style="display: none;">
   <header>
     <div class="brand">
-      <span>🍽️ لوحة إدارة المطعم</span>
+      <span>🍽️ إدارة المطعم — أوزبكستان</span>
       <span id="userBadge" class="badge-role"></span>
+      <span id="todayChip" class="date-chip"></span>
     </div>
     <div style="display: flex; gap: 8px; align-items: center;">
-      <button class="btn btn-outline" style="padding: 6px 12px; font-size: 13px;" onclick="loadAllData()">🔄 تحديث</button>
-      <button class="btn btn-danger" style="padding: 6px 12px; font-size: 13px;" onclick="doLogout()">خروج</button>
+      <button class="btn btn-outline" style="padding: 6px 12px; font-size: 12.5px;" onclick="loadAllData()">🔄 تحديث البيانات</button>
+      <button class="btn btn-danger" style="padding: 6px 12px; font-size: 12.5px;" onclick="doLogout()">خروج</button>
     </div>
   </header>
 
   <nav class="nav-tabs">
-    <button class="tab-btn active" data-tab="perfTab" onclick="switchTab('perfTab', this)">📊 شاشة الأداء</button>
+    <button class="tab-btn active" data-tab="perfTab" onclick="switchTab('perfTab', this)">📊 الأداء والتقارير</button>
     <button class="tab-btn" data-tab="purchasesTab" onclick="switchTab('purchasesTab', this)">🛒 مشتريات الخامات</button>
     <button class="tab-btn" data-tab="expensesTab" onclick="switchTab('expensesTab', this)">💸 المصروفات</button>
+    <button class="tab-btn" data-tab="inventoryTab" onclick="switchTab('inventoryTab', this)">📦 المخزن والجرد الدوري</button>
+    <button class="tab-btn" data-tab="hrTab" onclick="switchTab('hrTab', this)">👥 الموظفون والورديات</button>
     <button class="tab-btn" data-tab="closingTab" onclick="switchTab('closingTab', this)">🧾 الإغلاق اليومي</button>
     <button class="tab-btn" data-tab="materialsTab" onclick="switchTab('materialsTab', this)">🥩 المواد الخام</button>
   </nav>
 
   <div class="container">
 
-    <!-- ==================== 1. شاشة الأداء (المدمجة) ==================== -->
+    <!-- ==================== 1. شاشة الأداء والتقارير التفاعلية ==================== -->
     <div id="perfTab" class="section active">
       <div class="card">
-        <div class="card-header" style="margin-bottom: 0; border-bottom: none; padding-bottom: 0;">
-          <h2 class="card-title">📊 ملخص الأداء المالي الموحد</h2>
-          <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center;">
-            <input type="date" id="perfFrom" style="width: auto;" />
-            <span style="color: var(--muted); font-weight: 700;">إلى</span>
-            <input type="date" id="perfTo" style="width: auto;" />
-            <button class="btn btn-primary" onclick="refreshPerformance()">تطبيق الفترة</button>
+        <div class="card-header" style="margin-bottom: 12px;">
+          <div>
+            <h2 class="card-title">📊 لوحة الأداء المالي والتقارير التفاعلية</h2>
+            <p class="card-subtitle">دمج مشتريات الخامات والمصروفات التشغيلية مع تحليل الفروقات وصافي التدفق</p>
           </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center;">
+            <button class="btn btn-soft" style="padding: 6px 11px; font-size: 12px;" onclick="setQuickRange(0)">اليوم</button>
+            <button class="btn btn-soft" style="padding: 6px 11px; font-size: 12px;" onclick="setQuickRange(7)">آخر 7 أيام</button>
+            <button class="btn btn-soft" style="padding: 6px 11px; font-size: 12px;" onclick="setQuickRange(30)">آخر 30 يوماً</button>
+            <input type="date" id="perfFrom" style="width: auto;" onchange="validateDateField(this)" />
+            <span style="color: var(--muted); font-weight: 700;">إلى</span>
+            <input type="date" id="perfTo" style="width: auto;" onchange="validateDateField(this)" />
+            <button class="btn btn-primary" onclick="refreshPerformance()">تحديث التقرير</button>
+            <button class="btn btn-outline" onclick="exportPerformanceCSV()">📥 تصدير CSV</button>
+          </div>
+        </div>
+
+        <div class="sub-tabs">
+          <button class="sub-tab-btn active" onclick="switchPerfView('overview', this)">نظرة عامة مدمجة</button>
+          <button class="sub-tab-btn" onclick="switchPerfView('categories', this)">تحليل الفئات والنسب</button>
+          <button class="sub-tab-btn" onclick="switchPerfView('reconciliation', this)">رقابة الصندوق والضرائب</button>
         </div>
       </div>
 
@@ -438,7 +570,7 @@
             <span class="pill pill-purchase" id="kpiPurchPct">0%</span>
           </div>
           <div class="kpi-value" id="kpiPurchases">0</div>
-          <div class="kpi-sub">خاصة بالمواد الخام فقط (<span id="kpiPurchCount">0</span> فاتورة)</div>
+          <div class="kpi-sub">خامات فقط (<span id="kpiPurchCount">0</span> فاتورة)</div>
         </div>
 
         <div class="kpi expense">
@@ -447,7 +579,7 @@
             <span class="pill pill-expense" id="kpiExpPct">0%</span>
           </div>
           <div class="kpi-value" id="kpiExpenses">0</div>
-          <div class="kpi-sub">تشغيلية، رواتب، إيجار، صيانة (<span id="kpiExpCount">0</span> بند)</div>
+          <div class="kpi-sub">تشغيلية وإدارية (<span id="kpiExpCount">0</span> بند)</div>
         </div>
 
         <div class="kpi total-out">
@@ -456,55 +588,73 @@
             <span class="pill pill-bad" id="kpiOutRatio">0% من الصافي</span>
           </div>
           <div class="kpi-value" id="kpiTotalExpenses">0</div>
-          <div class="kpi-sub">دمج مشتريات الخامات + المصروفات الأخرى</div>
+          <div class="kpi-sub">مشتريات الخامات + المصروفات الأخرى</div>
         </div>
 
         <div class="kpi profit">
           <div class="kpi-label"><span>📈 صافي التدفق التشغيلي</span></div>
           <div class="kpi-value" id="kpiNetFlow">0</div>
-          <div class="kpi-sub">صافي المبيعات − إجمالي المصروفات الموحد</div>
+          <div class="kpi-sub">صافي المبيعات − إجمالي المصروفات</div>
         </div>
       </div>
 
-      <!-- شريط مقارنة هيكل المصروفات المدمج -->
-      <div class="split-bar-wrap">
-        <div style="display: flex; justify-content: space-between; font-weight: 800; font-size: 14px;">
-          <span>هيكل إجمالي المصروفات (المشتريات + المصروفات)</span>
-          <span id="barTotalLabel">0 UZS</span>
-        </div>
-        <div class="split-bar">
-          <div id="barPurchFill" class="bar-purchases" style="width: 50%;"></div>
-          <div id="barExpFill" class="bar-expenses" style="width: 50%;"></div>
-        </div>
-        <div class="split-legend">
-          <span><i class="dot" style="background: var(--purchase);"></i>مشتريات الخامات: <strong id="legPurch">0</strong></span>
-          <span><i class="dot" style="background: var(--expense);"></i>المصروفات الأخرى: <strong id="legExp">0</strong></span>
+      <!-- عرض النظرة العامة المدمجة -->
+      <div id="perfViewOverview">
+        <div class="split-bar-wrap">
+          <div style="display: flex; justify-content: space-between; font-weight: 800; font-size: 14px;">
+            <span>توزيع إجمالي المصروفات الموحد (مشتريات الخامات مقابل المصروفات الأخرى)</span>
+            <span id="barTotalLabel">0 UZS</span>
+          </div>
+          <div class="split-bar">
+            <div id="barPurchFill" class="bar-purchases" style="width: 50%;"></div>
+            <div id="barExpFill" class="bar-expenses" style="width: 50%;"></div>
+          </div>
+          <div class="split-legend">
+            <span><i class="dot" style="background: var(--purchase);"></i>مشتريات الخامات: <strong id="legPurch">0</strong></span>
+            <span><i class="dot" style="background: var(--expense);"></i>المصروفات الأخرى: <strong id="legExp">0</strong></span>
+          </div>
         </div>
       </div>
 
-      <!-- تفصيل الفئات -->
-      <div class="two-col">
-        <div class="card">
-          <div class="card-header">
-            <h3 class="card-title">🛒 تفصيل مشتريات الخامات حسب الفئة</h3>
+      <!-- عرض تحليل الفئات -->
+      <div id="perfViewCategories" style="display: none;">
+        <div class="two-col">
+          <div class="card">
+            <div class="card-header"><h3 class="card-title">🛒 تفصيل مشتريات الخامات حسب الفئة</h3></div>
+            <div id="perfPurchBars"></div>
           </div>
-          <div class="table-wrap">
-            <table>
-              <thead><tr><th>فئة الخامات</th><th>الإجمالي</th></tr></thead>
-              <tbody id="perfPurchCatBody"></tbody>
-            </table>
+          <div class="card">
+            <div class="card-header"><h3 class="card-title">💸 تفصيل المصروفات الأخرى حسب الفئة</h3></div>
+            <div id="perfExpBars"></div>
           </div>
         </div>
+      </div>
 
+      <!-- عرض رقابة الصندوق والضرائب -->
+      <div id="perfViewReconciliation" style="display: none;">
         <div class="card">
-          <div class="card-header">
-            <h3 class="card-title">💸 تفصيل المصروفات الأخرى حسب الفئة</h3>
-          </div>
-          <div class="table-wrap">
-            <table>
-              <thead><tr><th>فئة المصروف</th><th>الإجمالي</th></tr></thead>
-              <tbody id="perfExpCatBody"></tbody>
-            </table>
+          <div class="card-header"><h3 class="card-title">🏛️ ملخص المحصل النقدي، الفروقات، والضرائب</h3></div>
+          <div class="kpi-grid" style="margin-bottom: 0;">
+            <div class="kpi">
+              <div class="kpi-label"><span>💵 كاش فعلي</span></div>
+              <div class="kpi-value" id="recCash">0</div>
+            </div>
+            <div class="kpi">
+              <div class="kpi-label"><span>💳 بطاقات</span></div>
+              <div class="kpi-value" id="recCard">0</div>
+            </div>
+            <div class="kpi">
+              <div class="kpi-label"><span>🛵 تطبيقات</span></div>
+              <div class="kpi-value" id="recApps">0</div>
+            </div>
+            <div class="kpi">
+              <div class="kpi-label"><span>🏛️ إجمالي الضريبة</span></div>
+              <div class="kpi-value" id="recTax">0</div>
+            </div>
+            <div class="kpi">
+              <div class="kpi-label"><span>⚖️ إجمالي فرق الصندوق</span></div>
+              <div class="kpi-value" id="recVariance">0</div>
+            </div>
           </div>
         </div>
       </div>
@@ -514,13 +664,16 @@
     <div id="purchasesTab" class="section">
       <div class="card">
         <div class="card-header">
-          <h2 class="card-title">🛒 تسجيل فاتورة شراء خامات</h2>
-          <span class="pill pill-purchase">مخصص للمواد الخام فقط</span>
+          <div>
+            <h2 class="card-title">🛒 تسجيل فاتورة شراء خامات</h2>
+            <p class="card-subtitle">تُضاف تلقائياً إلى رصيد المخزن وإجمالي مشتريات الخامات</p>
+          </div>
+          <span class="pill pill-purchase">مخصص للخامات فقط</span>
         </div>
         <div class="form-grid">
           <div class="field">
-            <label>التاريخ</label>
-            <input type="date" id="purDate" />
+            <label>التاريخ (لا يتجاوز اليوم)</label>
+            <input type="date" id="purDate" onchange="validateDateField(this)" />
           </div>
           <div class="field">
             <label>المادة الخام *</label>
@@ -528,7 +681,7 @@
           </div>
           <div class="field">
             <label>الكمية *</label>
-            <input type="number" step="any" id="purQty" placeholder="مثال: 10" oninput="calcPurchaseTotal()" />
+            <input type="number" step="any" min="0" id="purQty" placeholder="مثال: 15" oninput="calcPurchaseTotal()" />
           </div>
           <div class="field">
             <label>الوحدة</label>
@@ -536,15 +689,15 @@
           </div>
           <div class="field">
             <label>سعر الوحدة</label>
-            <input type="number" step="any" id="purUnitPrice" placeholder="سعر الوحدة الواحدة" oninput="calcPurchaseTotal()" />
+            <input type="number" step="any" min="0" id="purUnitPrice" placeholder="سعر الوحدة" oninput="calcPurchaseTotal()" />
           </div>
           <div class="field">
             <label>إجمالي الفاتورة *</label>
-            <input type="number" step="any" id="purTotal" placeholder="يُحسب تلقائياً أو أدخله مباشرة" />
+            <input type="number" step="any" min="0" id="purTotal" placeholder="الإجمالي" />
           </div>
           <div class="field">
             <label>المورد</label>
-            <input type="text" id="purSupplier" placeholder="اسم المورد أو السوق" />
+            <input type="text" id="purSupplier" placeholder="اسم المورد" />
           </div>
           <div class="field">
             <label>مصدر الدفع</label>
@@ -556,7 +709,7 @@
             </select>
           </div>
           <div class="field">
-            <label>رقم الإيصال / الفاتورة</label>
+            <label>رقم الإيصال</label>
             <input type="text" id="purRef" placeholder="اختياري" />
           </div>
         </div>
@@ -570,9 +723,7 @@
       </div>
 
       <div class="card">
-        <div class="card-header">
-          <h3 class="card-title">سجل مشتريات الخامات الأخيرة</h3>
-        </div>
+        <div class="card-header"><h3 class="card-title">سجل مشتريات الخامات</h3></div>
         <div class="table-wrap">
           <table>
             <thead>
@@ -598,13 +749,16 @@
     <div id="expensesTab" class="section">
       <div class="card">
         <div class="card-header">
-          <h2 class="card-title">💸 تسجيل مصروف تشغيلي / عام</h2>
-          <span class="pill pill-expense">لباقي الأمور (غير الخامات)</span>
+          <div>
+            <h2 class="card-title">💸 تسجيل مصروف تشغيلي / عام</h2>
+            <p class="card-subtitle">مخصص لباقي البنود التشغيلية والإدارية والخدمية (غير مشتريات الخامات)</p>
+          </div>
+          <span class="pill pill-expense">لباقي الأمور</span>
         </div>
         <div class="form-grid">
           <div class="field">
-            <label>التاريخ</label>
-            <input type="date" id="expDate" />
+            <label>التاريخ (لا يتجاوز اليوم)</label>
+            <input type="date" id="expDate" onchange="validateDateField(this)" />
           </div>
           <div class="field">
             <label>تصنيف المصروف *</label>
@@ -619,11 +773,11 @@
           </div>
           <div class="field">
             <label>البيان / الوصف *</label>
-            <input type="text" id="expDesc" placeholder="مثال: فاتورة كهرباء شهر نوفمبر" />
+            <input type="text" id="expDesc" placeholder="مثال: فاتورة غاز وكهرباء" />
           </div>
           <div class="field">
             <label>المبلغ *</label>
-            <input type="number" step="any" id="expAmount" placeholder="0" />
+            <input type="number" step="any" min="0" id="expAmount" placeholder="0" />
           </div>
           <div class="field">
             <label>مصدر الدفع</label>
@@ -645,9 +799,7 @@
       </div>
 
       <div class="card">
-        <div class="card-header">
-          <h3 class="card-title">سجل المصروفات التشغيلية والعامة</h3>
-        </div>
+        <div class="card-header"><h3 class="card-title">سجل المصروفات التشغيلية والعامة</h3></div>
         <div class="table-wrap">
           <table>
             <thead>
@@ -668,20 +820,303 @@
       </div>
     </div>
 
-    <!-- ==================== 4. شاشة الإغلاق اليومي ==================== -->
+    <!-- ==================== 4. شاشة المخزن والجرد الدوري ==================== -->
+    <div id="inventoryTab" class="section">
+      <div class="two-col">
+        <!-- صرف / حركة مخزون -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">📤 صرف / حركة مخزون يومية</h3>
+              <p class="card-subtitle">تسجيل صرف خامات للمطبخ أو هالك موثق</p>
+            </div>
+          </div>
+          <div class="form-grid">
+            <div class="field">
+              <label>التاريخ</label>
+              <input type="date" id="movDate" onchange="validateDateField(this)" />
+            </div>
+            <div class="field">
+              <label>الخامة *</label>
+              <select id="movMaterial" onchange="onSelectMoveMaterial()"></select>
+            </div>
+            <div class="field">
+              <label>نوع الحركة</label>
+              <select id="movType">
+                <option value="صرف للمطبخ">صرف للمطبخ</option>
+                <option value="هالك / تلف">هالك / تلف</option>
+                <option value="تسوية وارد">تسوية وارد</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>الكمية *</label>
+              <input type="number" step="any" min="0" id="movQty" placeholder="0" />
+            </div>
+            <div class="field">
+              <label>الوحدة</label>
+              <input type="text" id="movUnit" />
+            </div>
+            <div class="field">
+              <label>ملاحظة</label>
+              <input type="text" id="movNotes" placeholder="سبب الصرف أو الهالك" />
+            </div>
+          </div>
+          <div style="margin-top: 14px; text-align: left;">
+            <button class="btn btn-primary" onclick="submitStockMovement()">💾 تسجيل الحركة</button>
+          </div>
+        </div>
+
+        <!-- الجرد الدوري -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">📋 الجرد الدوري (Periodic Stocktake)</h3>
+              <p class="card-subtitle">مقارنة الرصيد الدفتري بالرصيد الفعلي واحتساب فرق الجرد</p>
+            </div>
+            <span class="pill pill-info">جرد دوري</span>
+          </div>
+          <div class="form-grid">
+            <div class="field">
+              <label>تاريخ الجرد</label>
+              <input type="date" id="cntDate" onchange="validateDateField(this)" />
+            </div>
+            <div class="field">
+              <label>دورة الجرد</label>
+              <select id="cntCycle">
+                <option value="أسبوعي">جرد أسبوعي</option>
+                <option value="نصف شهري">جرد نصف شهري</option>
+                <option value="شهري">جرد شهري</option>
+                <option value="مفاجئ">جرد رقابي مفاجئ</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>الخامة *</label>
+              <select id="cntMaterial" onchange="onSelectCountMaterial()"></select>
+            </div>
+            <div class="field">
+              <label>الرصيد الدفتري</label>
+              <input type="number" step="any" id="cntBookQty" readonly style="background: var(--surface-2);" />
+            </div>
+            <div class="field">
+              <label>الرصيد الفعلي المجرود *</label>
+              <input type="number" step="any" min="0" id="cntActualQty" placeholder="الكمية الفعلية بالمخزن" oninput="calcCountDiffPreview()" />
+            </div>
+            <div class="field">
+              <label>ملاحظات الجرد</label>
+              <input type="text" id="cntNotes" placeholder="مثال: جرد نهاية الأسبوع" />
+            </div>
+          </div>
+          <div id="cntPreviewBox" class="info-box" style="margin-top: 12px; margin-bottom: 0;">
+            فرق الجرد التقديري: <strong>0</strong> | القيمة المالية للفرق: <strong>0 UZS</strong>
+          </div>
+          <div style="margin-top: 12px; text-align: left;">
+            <button class="btn btn-accent" onclick="submitPeriodicCount()">✅ اعتماد سطر الجرد الدوري</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- أرصدة المخزن الحالية -->
+      <div class="card">
+        <div class="card-header"><h3 class="card-title">📦 أرصدة المخزن الحالية (المشتريات − الصرف/الهالك + تسويات الجرد)</h3></div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>الخامة</th>
+                <th>الفئة</th>
+                <th>الوحدة</th>
+                <th>الرصيد الدفتري الحالي</th>
+                <th>سعر الوحدة</th>
+                <th>قيمة المخزون الحالية</th>
+                <th>حالة الرصيد</th>
+              </tr>
+            </thead>
+            <tbody id="stockBalancesBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- سجل محاضر الجرد الدوري -->
+      <div class="card">
+        <div class="card-header"><h3 class="card-title">📋 سجل محاضر الجرد الدوري والفروقات</h3></div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>التاريخ</th>
+                <th>الدورة</th>
+                <th>الخامة</th>
+                <th>الرصيد الدفتري</th>
+                <th>الفعلي</th>
+                <th>الفرق</th>
+                <th>قيمة الفرق المالية</th>
+                <th>بواسطة</th>
+              </tr>
+            </thead>
+            <tbody id="stockCountsBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== 5. شاشة الموظفين والورديات ومعايير العمل في أوزبكستان ==================== -->
+    <div id="hrTab" class="section">
+      <div class="info-box">
+        🇺🇿 <strong>معايير العمل المعتمدة (أوزبكستان):</strong> الحد الأسبوعي القياسي <strong>40 ساعة</strong> (8 ساعات/يوم في أسبوع 5 أيام، أو ما يعادله وفق جدول الورديات المرنة)، مع احتساب أجر الساعة تلقائياً وتطبيق خصومات التأخير/الغياب غير المبرر أو الإجازات بدقة.
+      </div>
+
+      <div class="two-col">
+        <!-- إضافة موظف وتحديد الوردية والراتب -->
+        <div class="card">
+          <div class="card-header"><h3 class="card-title">👤 تسجيل موظف ووردية العمل</h3></div>
+          <div class="form-grid">
+            <div class="field">
+              <label>اسم الموظف *</label>
+              <input type="text" id="empName" placeholder="الاسم الكامل" />
+            </div>
+            <div class="field">
+              <label>المسمى الوظيفي</label>
+              <input type="text" id="empRole" placeholder="طباخ / كاشير / ويتر / عامل" />
+            </div>
+            <div class="field">
+              <label>الراتب الشهري الأساسي *</label>
+              <input type="number" min="0" id="empSalary" placeholder="مثال: 4,000,000" />
+            </div>
+            <div class="field">
+              <label>نوع الوردية</label>
+              <select id="empShiftType" onchange="applyShiftPreset()">
+                <option value="صباحية مرنة">وردية صباحية مرنة (08:00 - 16:00)</option>
+                <option value="مسائية مرنة">وردية مسائية مرنة (15:00 - 23:00)</option>
+                <option value="وردية كاملة">وردية تشغيلية كاملة (10:00 - 22:00)</option>
+                <option value="مخصصة">وردية مخصصة</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>بداية الوردية</label>
+              <input type="time" id="empShiftStart" value="08:00" />
+            </div>
+            <div class="field">
+              <label>نهاية الوردية</label>
+              <input type="time" id="empShiftEnd" value="16:00" />
+            </div>
+            <div class="field">
+              <label>ساعات العمل القياسية/شهر (أوزبكستان ≈ 173.3 ساعة)</label>
+              <input type="number" step="0.1" id="empStdHours" value="173.3" />
+            </div>
+          </div>
+          <div style="margin-top: 14px; text-align: left;">
+            <button class="btn btn-primary" onclick="submitEmployee()">➕ إضافة الموظف</button>
+          </div>
+        </div>
+
+        <!-- تسجيل حضور / انصراف / إجازة / خصم -->
+        <div class="card">
+          <div class="card-header"><h3 class="card-title">🕒 تسجيل حضور، انصراف، أو إجازة</h3></div>
+          <div class="form-grid">
+            <div class="field">
+              <label>التاريخ (لا يتجاوز اليوم)</label>
+              <input type="date" id="attDate" onchange="validateDateField(this)" />
+            </div>
+            <div class="field">
+              <label>الموظف *</label>
+              <select id="attEmployee"></select>
+            </div>
+            <div class="field">
+              <label>نوع السجل</label>
+              <select id="attStatus" onchange="toggleAttTimeInputs()">
+                <option value="حضور وانصراف">حضور وانصراف فعلي</option>
+                <option value="إجازة سنوية مدفوعة">إجازة سنوية مدفوعة (معيار أوزبكستان)</option>
+                <option value="إجازة مرضية">إجازة مرضية / عذر طبي</option>
+                <option value="إجازة بدون راتب">إجازة بدون راتب</option>
+                <option value="غياب بدون عذر">غياب بدون عذر (خصم يوم)</option>
+              </select>
+            </div>
+            <div class="field" id="attInField">
+              <label>وقت الحضور</label>
+              <input type="time" id="attIn" value="08:00" />
+            </div>
+            <div class="field" id="attOutField">
+              <label>وقت الانصراف</label>
+              <input type="time" id="attOut" value="16:00" />
+            </div>
+            <div class="field">
+              <label>خصم إضافي يدوي (اختياري)</label>
+              <input type="number" min="0" id="attExtraDed" value="0" />
+            </div>
+            <div class="field">
+              <label>ملاحظات</label>
+              <input type="text" id="attNotes" placeholder="تأخير / إجازة / ملاحظة" />
+            </div>
+          </div>
+          <div style="margin-top: 14px; text-align: left;">
+            <button class="btn btn-accent" onclick="submitAttendance()">💾 حفظ سجل الدوام</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- جدول الموظفين وحساب أجر الساعة والخصومات والراتب المستحق -->
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h3 class="card-title">💼 كشف الموظفين، أجر الساعة، الخصومات، وصافي الراتب</h3>
+            <p class="card-subtitle">يُحسب أجر الساعة = الراتب الأساسي ÷ ساعات العمل الشهرية القياسية (40 ساعة/أسبوع وفق معايير أوزبكستان)</p>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>الموظف</th>
+                <th>الوظيفة</th>
+                <th>الوردية المرنة</th>
+                <th>الراتب الأساسي</th>
+                <th>أجر الساعة</th>
+                <th>ساعات مسجلة</th>
+                <th>إجمالي الخصومات</th>
+                <th>الراتب المستحق التقديري</th>
+              </tr>
+            </thead>
+            <tbody id="hrPayrollBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- سجل الحضور والانصراف والإجازات -->
+      <div class="card">
+        <div class="card-header"><h3 class="card-title">🕒 سجل الحضور والانصراف والإجازات</h3></div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>التاريخ</th>
+                <th>الموظف</th>
+                <th>الحالة</th>
+                <th>دخول / خروج</th>
+                <th>الساعات</th>
+                <th>الخصم المحسوب</th>
+                <th>ملاحظات</th>
+              </tr>
+            </thead>
+            <tbody id="attendanceBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== 6. شاشة الإغلاق اليومي ==================== -->
     <div id="closingTab" class="section">
       <div class="card">
         <div class="card-header">
           <h2 class="card-title">🧾 الإغلاق المالي اليومي</h2>
         </div>
         <div class="form-grid">
-          <div class="field"><label>التاريخ</label><input type="date" id="clDate" /></div>
-          <div class="field"><label>مبيعات الكاشير (POS) *</label><input type="number" id="clPos" placeholder="0" /></div>
-          <div class="field"><label>كاش فعلي بالدرج</label><input type="number" id="clCash" placeholder="0" /></div>
-          <div class="field"><label>بطاقات (Uzcard / Humo)</label><input type="number" id="clCard" placeholder="0" /></div>
-          <div class="field"><label>تطبيقات التوصيل</label><input type="number" id="clApps" placeholder="0" /></div>
-          <div class="field"><label>مصروفات نثرية من الدرج</label><input type="number" id="clPetty" placeholder="0" /></div>
-          <div class="field"><label>الفواتير الملغاة (Voids)</label><input type="number" id="clVoids" placeholder="0" /></div>
+          <div class="field"><label>التاريخ (لا يتجاوز اليوم)</label><input type="date" id="clDate" onchange="validateDateField(this)" /></div>
+          <div class="field"><label>مبيعات الكاشير (POS) *</label><input type="number" min="0" id="clPos" placeholder="0" /></div>
+          <div class="field"><label>كاش فعلي بالدرج</label><input type="number" min="0" id="clCash" placeholder="0" /></div>
+          <div class="field"><label>بطاقات (Uzcard / Humo)</label><input type="number" min="0" id="clCard" placeholder="0" /></div>
+          <div class="field"><label>تطبيقات التوصيل</label><input type="number" min="0" id="clApps" placeholder="0" /></div>
+          <div class="field"><label>مصروفات نثرية من الدرج</label><input type="number" min="0" id="clPetty" placeholder="0" /></div>
+          <div class="field"><label>الفواتير الملغاة (Voids)</label><input type="number" min="0" id="clVoids" placeholder="0" /></div>
           <div class="field"><label>ملاحظات</label><input type="text" id="clNotes" placeholder="ملاحظات الإغلاق" /></div>
         </div>
         <div style="margin-top: 14px; text-align: left;">
@@ -709,18 +1144,18 @@
       </div>
     </div>
 
-    <!-- ==================== 5. شاشة المواد الخام ==================== -->
+    <!-- ==================== 7. شاشة المواد الخام ==================== -->
     <div id="materialsTab" class="section">
       <div class="card">
         <div class="card-header">
           <h2 class="card-title">🥩 إضافة مادة خام جديدة</h2>
         </div>
         <div class="form-grid">
-          <div class="field"><label>اسم الخامة *</label><input type="text" id="matName" placeholder="مثال: لحم بقري مفروم" /></div>
+          <div class="field"><label>اسم الخامة *</label><input type="text" id="matName" placeholder="مثال: لحم بقري" /></div>
           <div class="field"><label>الفئة</label><input type="text" id="matCat" placeholder="لحوم / خضروات / ألبان" /></div>
           <div class="field"><label>وحدة القياس</label><input type="text" id="matUnit" value="كجم" /></div>
-          <div class="field"><label>سعر الوحدة الافتراضي *</label><input type="number" id="matCost" placeholder="0" /></div>
-          <div class="field"><label>نسبة الصافي (Yield %)</label><input type="number" id="matYield" value="100" /></div>
+          <div class="field"><label>سعر الوحدة الافتراضي *</label><input type="number" min="0" id="matCost" placeholder="0" /></div>
+          <div class="field"><label>نسبة الصافي (Yield %)</label><input type="number" min="1" max="100" id="matYield" value="100" /></div>
         </div>
         <div style="margin-top: 14px; text-align: left;">
           <button class="btn btn-primary" onclick="submitMaterial()">➕ إضافة الخامة</button>
@@ -752,11 +1187,10 @@
 <div id="toast"></div>
 
 <script>
-  // ضع رابط النشر الخاص بـ Google Apps Script Web App هنا مباشرة إذا أردت تثبيته في GitHub
-  const DEFAULT_API_URL = 'https://script.google.com/macros/s/AKfycbwQYTIzhp3OTZsCKhstBoFNl6HKM_jVTbHeuImZbsmUZ3MnEZyhbGqVCyEesQrFxyey/exec';
+  // رابط الخادم (Google Apps Script Web App URL) — مخفي عن واجهة الدخول
+  const API_URL = 'https://script.google.com/macros/s/AKfycbzlp9Mw0W6qJNbnIBJRi2_2yXIMPL2wgzZuPuQ0lR6BDNm3B4bNbF4dkZLeP5MILmu5/exec';
 
   let STATE = {
-    apiUrl: localStorage.getItem('rest_api_url') || DEFAULT_API_URL,
     token: localStorage.getItem('rest_token') || '',
     me: null,
     S: { currency: 'UZS' },
@@ -764,21 +1198,36 @@
     purchases: [],
     expenses: [],
     closings: [],
+    stockMovements: [],
+    stockCounts: [],
+    employees: [],
+    attendance: [],
     performance: null
   };
 
   function todayStr() {
-    return new Date().toISOString().slice(0, 10);
+    const now = new Date();
+    const y = now.getFullYear();
+    const m = String(now.getMonth() + 1).padStart(2, '0');
+    const d = String(now.getDate()).padStart(2, '0');
+    return `${y}-${m}-${d}`;
   }
 
   function daysAgoStr(n) {
     const d = new Date();
-    d.setDate(d.getDate() - n);
-    return d.toISOString().slice(0, 10);
+    d.setDate(d.getDate() - Number(n || 0));
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${y}-${m}-${day}`;
   }
 
   function fmt(n) {
     return Number(n || 0).toLocaleString('en-US', { maximumFractionDigits: 0 });
+  }
+
+  function fmtDec(n, d = 1) {
+    return Number(n || 0).toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d });
   }
 
   function showToast(msg, type = 'success') {
@@ -787,9 +1236,45 @@
     t.className = type;
     t.style.display = 'block';
     clearTimeout(t._timer);
-    t._timer = setTimeout(() => { t.style.display = 'none'; }, 3500);
+    t._timer = setTimeout(() => { t.style.display = 'none'; }, 3800);
   }
 
+  /* ================= التحقق من عدم اختيار تاريخ لاحق لليوم ================= */
+  function isFutureDate(dateStr) {
+    if (!dateStr) return false;
+    return String(dateStr).slice(0, 10) > todayStr();
+  }
+
+  function assertNotFutureDate(dateStr, label = 'التاريخ') {
+    const clean = String(dateStr || '').slice(0, 10);
+    if (!clean) return todayStr();
+    if (clean > todayStr()) {
+      throw new Error(`لا يجوز اختيار ${label} لاحق لتاريخ اليوم (${todayStr()})`);
+    }
+    return clean;
+  }
+
+  function validateDateField(inputEl) {
+    const maxD = todayStr();
+    inputEl.max = maxD;
+    if (inputEl.value && inputEl.value > maxD) {
+      inputEl.classList.add('date-invalid');
+      inputEl.value = maxD;
+      showToast(`لا يجوز اختيار تاريخ لاحق لليوم (${maxD}) — تم ضبطه على اليوم`, 'warn');
+    } else {
+      inputEl.classList.remove('date-invalid');
+    }
+  }
+
+  function applyMaxTodayToAllDateInputs() {
+    const maxD = todayStr();
+    document.getElementById('todayChip').textContent = `📅 اليوم: ${maxD}`;
+    document.querySelectorAll('input[type="date"]').forEach(inp => {
+      inp.max = maxD;
+    });
+  }
+
+  /* ================= الاتصال بالخادم ================= */
   async function callApi(action, payload = {}) {
     const body = {
       auth: { token: STATE.token },
@@ -797,7 +1282,7 @@
       payload: payload
     };
 
-    if (!STATE.apiUrl && typeof google !== 'undefined' && google.script && google.script.run) {
+    if (!API_URL && typeof google !== 'undefined' && google.script && google.script.run) {
       return new Promise((resolve, reject) => {
         google.script.run
           .withSuccessHandler(res => {
@@ -813,10 +1298,7 @@
           .api(body.auth, body.action, body.payload);
       });
     } else {
-      if (!STATE.apiUrl) {
-        throw new Error('يرجى إدخال رابط Google Apps Script Web App URL');
-      }
-      const resp = await fetch(STATE.apiUrl, {
+      const resp = await fetch(API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
         body: JSON.stringify(body),
@@ -827,7 +1309,7 @@
       try {
         data = JSON.parse(text);
       } catch (err) {
-        throw new Error('استجابة غير صالحة من الخادم، تحقق من رابط وصلاحيات Web App');
+        throw new Error('تعذر قراءة استجابة الخادم');
       }
       if (data && data.error) {
         if (String(data.error).startsWith('AUTH:')) handleAuthExpired();
@@ -846,11 +1328,6 @@
 
   async function doLogin() {
     try {
-      const apiInput = document.getElementById('apiEndpointInput').value.trim();
-      if (apiInput) {
-        STATE.apiUrl = apiInput;
-        localStorage.setItem('rest_api_url', apiInput);
-      }
       const login = document.getElementById('loginUser').value.trim();
       const password = document.getElementById('loginPass').value;
       const res = await callApi('login', { login, password });
@@ -873,15 +1350,18 @@
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
     document.getElementById(tabId).classList.add('active');
     if (btn) btn.classList.add('active');
+    applyMaxTodayToAllDateInputs();
   }
 
   function initDates() {
+    applyMaxTodayToAllDateInputs();
     const t = todayStr();
     document.getElementById('perfFrom').value = daysAgoStr(30);
     document.getElementById('perfTo').value = t;
-    document.getElementById('purDate').value = t;
-    document.getElementById('expDate').value = t;
-    document.getElementById('clDate').value = t;
+    ['purDate', 'expDate', 'movDate', 'cntDate', 'attDate', 'clDate'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.value = t;
+    });
   }
 
   async function initApp() {
@@ -893,24 +1373,31 @@
 
   async function loadAllData() {
     try {
-      const from = document.getElementById('perfFrom').value;
-      const to = document.getElementById('perfTo').value;
+      const from = assertNotFutureDate(document.getElementById('perfFrom').value, 'بداية الفترة');
+      const to = assertNotFutureDate(document.getElementById('perfTo').value, 'نهاية الفترة');
       const data = await callApi('getData', { from, to });
+
       STATE.me = data.me;
       STATE.S = data.S || { currency: 'UZS' };
       STATE.materials = data.materials || [];
       STATE.purchases = data.purchases || [];
       STATE.expenses = data.expenses || [];
       STATE.closings = data.closings || [];
+      STATE.stockMovements = data.stockMovements || [];
+      STATE.stockCounts = data.stockCounts || [];
+      STATE.employees = data.employees || [];
+      STATE.attendance = data.attendance || [];
       STATE.performance = data.performance;
 
       document.getElementById('userBadge').textContent =
         `${STATE.me.name} (${STATE.me.role === 'owner' ? 'مالك' : 'مدير'})`;
 
-      renderMaterialsDropdown();
+      renderMaterialsDropdowns();
       renderMaterialsTable();
       renderPurchasesTable();
       renderExpensesTable();
+      renderInventoryAndCounts();
+      renderHRAndAttendance();
       renderClosingsTable();
       renderPerformance(STATE.performance);
     } catch (e) {
@@ -918,14 +1405,33 @@
     }
   }
 
+  /* ================= 1. الأداء والتقارير التفاعلية ================= */
+  function setQuickRange(days) {
+    const t = todayStr();
+    document.getElementById('perfTo').value = t;
+    document.getElementById('perfFrom').value = days === 0 ? t : daysAgoStr(days);
+    refreshPerformance();
+  }
+
+  function switchPerfView(viewName, btn) {
+    document.querySelectorAll('.sub-tab-btn').forEach(b => b.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+    document.getElementById('perfViewOverview').style.display = viewName === 'overview' ? 'block' : 'none';
+    document.getElementById('perfViewCategories').style.display = viewName === 'categories' ? 'block' : 'none';
+    document.getElementById('perfViewReconciliation').style.display = viewName === 'reconciliation' ? 'block' : 'none';
+  }
+
   async function refreshPerformance() {
     try {
-      const from = document.getElementById('perfFrom').value;
-      const to = document.getElementById('perfTo').value;
+      const from = assertNotFutureDate(document.getElementById('perfFrom').value, 'بداية الفترة');
+      const to = assertNotFutureDate(document.getElementById('perfTo').value, 'نهاية الفترة');
+      if (from > to) {
+        throw new Error('تاريخ البداية لا يمكن أن يكون بعد تاريخ النهاية');
+      }
       const res = await callApi('getPerformance', { from, to });
       STATE.performance = res.performance;
       renderPerformance(res.performance);
-      showToast('تم تحديث بيانات الأداء');
+      showToast('تم تحديث تقرير الأداء');
     } catch (e) {
       showToast(e.message, 'error');
     }
@@ -934,56 +1440,106 @@
   function renderPerformance(perf) {
     if (!perf) return;
     const cur = STATE.S.currency || 'UZS';
-    const s = perf.sales;
-    const o = perf.outflows;
+    const s = perf.sales || {};
+    const o = perf.outflows || {};
 
     document.getElementById('kpiGrossSales').textContent = `${fmt(s.gross_sales)} ${cur}`;
     document.getElementById('kpiNetSales').textContent = `${fmt(s.net_sales)} ${cur}`;
 
     document.getElementById('kpiPurchases').textContent = `${fmt(o.purchases_total)} ${cur}`;
     document.getElementById('kpiPurchPct').textContent = `${o.purchases_share_pct}%`;
-    document.getElementById('kpiPurchCount').textContent = perf.counts.purchases;
+    document.getElementById('kpiPurchCount').textContent = perf.counts?.purchases || 0;
 
     document.getElementById('kpiExpenses').textContent = `${fmt(o.expenses_total)} ${cur}`;
     document.getElementById('kpiExpPct').textContent = `${o.expenses_share_pct}%`;
-    document.getElementById('kpiExpCount').textContent = perf.counts.expenses;
+    document.getElementById('kpiExpCount').textContent = perf.counts?.expenses || 0;
 
     document.getElementById('kpiTotalExpenses').textContent = `${fmt(o.total_expenses)} ${cur}`;
-    document.getElementById('kpiOutRatio').textContent = `${o.expense_to_net_sales_pct}% من صافي المبيعات`;
+    document.getElementById('kpiOutRatio').textContent = `${o.expense_to_net_sales_pct}% من الصافي`;
 
     const netFlowEl = document.getElementById('kpiNetFlow');
     netFlowEl.textContent = `${fmt(perf.operating_net_cash_flow)} ${cur}`;
-    netFlowEl.style.color = perf.operating_net_cash_flow >= 0 ? 'var(--success)' : 'var(--danger)';
+    netFlowEl.style.color = (perf.operating_net_cash_flow || 0) >= 0 ? 'var(--success)' : 'var(--danger)';
 
     document.getElementById('barTotalLabel').textContent = `${fmt(o.total_expenses)} ${cur}`;
-    document.getElementById('barPurchFill').style.width = `${o.purchases_share_pct}%`;
-    document.getElementById('barExpFill').style.width = `${o.expenses_share_pct}%`;
-    document.getElementById('legPurch').textContent = `${fmt(o.purchases_total)} ${cur} (${o.purchases_share_pct}%)`;
-    document.getElementById('legExp').textContent = `${fmt(o.expenses_total)} ${cur} (${o.expenses_share_pct}%)`;
+    document.getElementById('barPurchFill').style.width = `${o.purchases_share_pct || 0}%`;
+    document.getElementById('barExpFill').style.width = `${o.expenses_share_pct || 0}%`;
+    document.getElementById('legPurch').textContent = `${fmt(o.purchases_total)} ${cur} (${o.purchases_share_pct || 0}%)`;
+    document.getElementById('legExp').textContent = `${fmt(o.expenses_total)} ${cur} (${o.expenses_share_pct || 0}%)`;
 
-    const pCatBody = document.getElementById('perfPurchCatBody');
-    const pCats = Object.entries(o.purchases_by_category || {});
-    pCatBody.innerHTML = pCats.length
-      ? pCats.map(([k, v]) => `<tr><td>${k}</td><td><strong>${fmt(v)} ${cur}</strong></td></tr>`).join('')
-      : `<tr><td colspan="2" style="color:var(--muted);text-align:center;">لا توجد مشتريات في هذه الفترة</td></tr>`;
+    // أشرطة الفئات التفاعلية
+    renderCategoryBars('perfPurchBars', o.purchases_by_category, o.purchases_total, 'pur', cur);
+    renderCategoryBars('perfExpBars', o.expenses_by_category, o.expenses_total, 'exp', cur);
 
-    const eCatBody = document.getElementById('perfExpCatBody');
-    const eCats = Object.entries(o.expenses_by_category || {});
-    eCatBody.innerHTML = eCats.length
-      ? eCats.map(([k, v]) => `<tr><td>${k}</td><td><strong>${fmt(v)} ${cur}</strong></td></tr>`).join('')
-      : `<tr><td colspan="2" style="color:var(--muted);text-align:center;">لا توجد مصروفات في هذه الفترة</td></tr>`;
+    // رقابة الصندوق والضرائب
+    document.getElementById('recCash').textContent = `${fmt(s.cash_actual)} ${cur}`;
+    document.getElementById('recCard').textContent = `${fmt(s.card_actual)} ${cur}`;
+    document.getElementById('recApps').textContent = `${fmt(s.apps_actual)} ${cur}`;
+    document.getElementById('recTax').textContent = `${fmt(s.tax_total)} ${cur}`;
+    document.getElementById('recVariance').textContent = `${fmt(s.cash_variance_total)} ${cur}`;
   }
 
-  /* ---- المشتريات ---- */
-  function renderMaterialsDropdown() {
-    const sel = document.getElementById('purMaterial');
-    sel.innerHTML = '<option value="">-- اختر الخامة --</option>' +
+  function renderCategoryBars(containerId, obj, total, cls, cur) {
+    const el = document.getElementById(containerId);
+    const entries = Object.entries(obj || {});
+    if (!entries.length || !total) {
+      el.innerHTML = `<p style="color:var(--muted);font-size:13px;text-align:center;">لا توجد بيانات في هذه الفترة</p>`;
+      return;
+    }
+    el.innerHTML = entries.map(([cat, val]) => {
+      const pct = total > 0 ? Math.round((Number(val) / Number(total)) * 1000) / 10 : 0;
+      return `
+        <div class="cat-bar-row">
+          <div class="cat-bar-meta">
+            <span>${cat}</span>
+            <span>${fmt(val)} ${cur} (${pct}%)</span>
+          </div>
+          <div class="cat-track">
+            <div class="cat-fill ${cls}" style="width: ${pct}%;"></div>
+          </div>
+        </div>`;
+    }).join('');
+  }
+
+  function exportPerformanceCSV() {
+    const perf = STATE.performance;
+    if (!perf) return showToast('لا توجد بيانات للتصدير', 'warn');
+    const rows = [
+      ['المؤشر', 'القيمة'],
+      ['من تاريخ', perf.period?.from || ''],
+      ['إلى تاريخ', perf.period?.to || ''],
+      ['إجمالي المبيعات (POS)', perf.sales?.gross_sales || 0],
+      ['صافي المبيعات بعد الضريبة', perf.sales?.net_sales || 0],
+      ['الضريبة', perf.sales?.tax_total || 0],
+      ['مشتريات الخامات', perf.outflows?.purchases_total || 0],
+      ['المصروفات الأخرى', perf.outflows?.expenses_total || 0],
+      ['إجمالي المصروفات (الموحد)', perf.outflows?.total_expenses || 0],
+      ['صافي التدفق التشغيلي', perf.operating_net_cash_flow || 0]
+    ];
+    const csv = '\uFEFF' + rows.map(r => r.map(x => `"${String(x).replace(/"/g, '""')}"`).join(',')).join('\n');
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `performance-report-${perf.period?.to || todayStr()}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+    showToast('تم تصدير تقرير الأداء بصيغة CSV');
+  }
+
+  /* ================= القوائم المنسدلة للخامات ================= */
+  function renderMaterialsDropdowns() {
+    const opts = '<option value="">-- اختر الخامة --</option>' +
       STATE.materials.map(m => `<option value="${m.id}" data-unit="${m.unit}" data-cost="${m.unit_cost}">${m.name} (${m.unit})</option>`).join('');
+    ['purMaterial', 'movMaterial', 'cntMaterial'].forEach(id => {
+      const sel = document.getElementById(id);
+      if (sel) sel.innerHTML = opts;
+    });
   }
 
+  /* ================= 2. المشتريات ================= */
   function onSelectPurchaseMaterial() {
-    const sel = document.getElementById('purMaterial');
-    const opt = sel.options[sel.selectedIndex];
+    const opt = document.getElementById('purMaterial').selectedOptions[0];
     if (!opt || !opt.value) return;
     document.getElementById('purUnit').value = opt.dataset.unit || '';
     document.getElementById('purUnitPrice').value = opt.dataset.cost || '';
@@ -1000,8 +1556,9 @@
 
   async function submitPurchase() {
     try {
+      const date = assertNotFutureDate(document.getElementById('purDate').value, 'تاريخ الشراء');
       await callApi('addPurchase', {
-        date: document.getElementById('purDate').value,
+        date: date,
         material_id: document.getElementById('purMaterial').value,
         qty: document.getElementById('purQty').value,
         unit: document.getElementById('purUnit').value,
@@ -1015,7 +1572,7 @@
       document.getElementById('purQty').value = '';
       document.getElementById('purTotal').value = '';
       document.getElementById('purRef').value = '';
-      showToast('تم تسجيل فاتورة شراء الخامات بنجاح');
+      showToast('تم حفظ فاتورة شراء الخامات');
       await loadAllData();
     } catch (e) {
       showToast(e.message, 'error');
@@ -1053,11 +1610,12 @@
       : `<tr><td colspan="9" style="text-align:center;color:var(--muted);">لا توجد مشتريات مسجلة</td></tr>`;
   }
 
-  /* ---- المصروفات ---- */
+  /* ================= 3. المصروفات ================= */
   async function submitExpense() {
     try {
+      const date = assertNotFutureDate(document.getElementById('expDate').value, 'تاريخ المصروف');
       await callApi('addExpense', {
-        date: document.getElementById('expDate').value,
+        date: date,
         category: document.getElementById('expCategory').value,
         description: document.getElementById('expDesc').value,
         amount: document.getElementById('expAmount').value,
@@ -1067,7 +1625,7 @@
       document.getElementById('expDesc').value = '';
       document.getElementById('expAmount').value = '';
       document.getElementById('expRef').value = '';
-      showToast('تم تسجيل المصروف بنجاح');
+      showToast('تم تسجيل المصروف');
       await loadAllData();
     } catch (e) {
       showToast(e.message, 'error');
@@ -1104,11 +1662,334 @@
       : `<tr><td colspan="8" style="text-align:center;color:var(--muted);">لا توجد مصروفات مسجلة</td></tr>`;
   }
 
-  /* ---- الإغلاق اليومي ---- */
+  /* ================= 4. المخزن والجرد الدوري ================= */
+  function computeBookBalances_() {
+    const balMap = {};
+    STATE.materials.forEach(m => {
+      balMap[m.id] = {
+        material_id: m.id,
+        name: m.name,
+        category: m.category || 'عام',
+        unit: m.unit || 'كجم',
+        unit_cost: Number(m.unit_cost || 0),
+        book_qty: 0,
+        has_count_override: false
+      };
+    });
+
+    STATE.purchases.forEach(p => {
+      if (!balMap[p.material_id]) return;
+      balMap[p.material_id].book_qty += Number(p.qty || 0);
+    });
+
+    STATE.stockMovements.forEach(mv => {
+      if (!balMap[mv.material_id]) return;
+      const q = Number(mv.qty || 0);
+      if (mv.type === 'تسوية وارد') balMap[mv.material_id].book_qty += q;
+      else balMap[mv.material_id].book_qty -= q;
+    });
+
+    // أحدث جرد دوري يضبط الرصيد الدفتري الفعلي
+    const sortedCounts = [...STATE.stockCounts].sort((a, b) => String(a.date).localeCompare(String(b.date)));
+    sortedCounts.forEach(c => {
+      if (!balMap[c.material_id]) return;
+      balMap[c.material_id].book_qty = Number(c.actual_qty || 0);
+      balMap[c.material_id].has_count_override = true;
+    });
+
+    return Object.values(balMap).map(item => ({
+      ...item,
+      book_qty: Math.round(item.book_qty * 100) / 100,
+      stock_value: Math.round(item.book_qty * item.unit_cost)
+    }));
+  }
+
+  function onSelectMoveMaterial() {
+    const opt = document.getElementById('movMaterial').selectedOptions[0];
+    if (opt && opt.value) document.getElementById('movUnit').value = opt.dataset.unit || '';
+  }
+
+  function onSelectCountMaterial() {
+    const matId = document.getElementById('cntMaterial').value;
+    const balances = computeBookBalances_();
+    const found = balances.find(b => b.material_id === matId);
+    document.getElementById('cntBookQty').value = found ? found.book_qty : 0;
+    calcCountDiffPreview();
+  }
+
+  function calcCountDiffPreview() {
+    const matId = document.getElementById('cntMaterial').value;
+    const mat = STATE.materials.find(m => m.id === matId);
+    const bookQty = Number(document.getElementById('cntBookQty').value || 0);
+    const actualRaw = document.getElementById('cntActualQty').value;
+    const actualQty = actualRaw === '' ? bookQty : Number(actualRaw || 0);
+    const diff = Math.round((actualQty - bookQty) * 100) / 100;
+    const unitCost = mat ? Number(mat.unit_cost || 0) : 0;
+    const valDiff = Math.round(diff * unitCost);
+    const cur = STATE.S.currency || 'UZS';
+    document.getElementById('cntPreviewBox').innerHTML =
+      `فرق الجرد التقديري: <strong>${diff > 0 ? '+' + diff : diff}</strong> | القيمة المالية للفرق: <strong>${fmt(valDiff)} ${cur}</strong>`;
+  }
+
+  async function submitStockMovement() {
+    try {
+      const date = assertNotFutureDate(document.getElementById('movDate').value, 'تاريخ الحركة');
+      await callApi('addStockMovement', {
+        date: date,
+        material_id: document.getElementById('movMaterial').value,
+        type: document.getElementById('movType').value,
+        qty: document.getElementById('movQty').value,
+        unit: document.getElementById('movUnit').value,
+        notes: document.getElementById('movNotes').value
+      });
+      document.getElementById('movQty').value = '';
+      document.getElementById('movNotes').value = '';
+      showToast('تم تسجيل حركة المخزون');
+      await loadAllData();
+    } catch (e) {
+      showToast(e.message, 'error');
+    }
+  }
+
+  async function submitPeriodicCount() {
+    try {
+      const date = assertNotFutureDate(document.getElementById('cntDate').value, 'تاريخ الجرد');
+      await callApi('submitStockCount', {
+        date: date,
+        cycle: document.getElementById('cntCycle').value,
+        material_id: document.getElementById('cntMaterial').value,
+        book_qty: document.getElementById('cntBookQty').value,
+        actual_qty: document.getElementById('cntActualQty').value,
+        notes: document.getElementById('cntNotes').value
+      });
+      document.getElementById('cntActualQty').value = '';
+      document.getElementById('cntNotes').value = '';
+      showToast('تم اعتماد سطر الجرد الدوري');
+      await loadAllData();
+    } catch (e) {
+      showToast(e.message, 'error');
+    }
+  }
+
+  function renderInventoryAndCounts() {
+    const cur = STATE.S.currency || 'UZS';
+    const balances = computeBookBalances_();
+    const balBody = document.getElementById('stockBalancesBody');
+    balBody.innerHTML = balances.length
+      ? balances.map(b => {
+        const statusPill = b.book_qty <= 0
+          ? `<span class="pill pill-bad">نافد / صفر</span>`
+          : (b.book_qty < 3 ? `<span class="pill pill-warn">منخفض</span>` : `<span class="pill pill-ok">متوفر</span>`);
+        return `
+          <tr>
+            <td><strong>${b.name}</strong></td>
+            <td>${b.category}</td>
+            <td>${b.unit}</td>
+            <td><strong>${b.book_qty} ${b.unit}</strong></td>
+            <td>${fmt(b.unit_cost)} ${cur}</td>
+            <td><strong>${fmt(b.stock_value)} ${cur}</strong></td>
+            <td>${statusPill}</td>
+          </tr>`;
+      }).join('')
+      : `<tr><td colspan="7" style="text-align:center;color:var(--muted);">أضف مواد خام أولاً لمتابعة المخزن</td></tr>`;
+
+    const cntBody = document.getElementById('stockCountsBody');
+    cntBody.innerHTML = STATE.stockCounts.length
+      ? STATE.stockCounts.map(c => {
+        const diff = Number(c.diff_qty || 0);
+        const diffPill = diff < 0
+          ? `<span class="pill pill-bad">${diff}</span>`
+          : (diff > 0 ? `<span class="pill pill-ok">+${diff}</span>` : `<span class="pill pill-info">0</span>`);
+        return `
+          <tr>
+            <td>${c.date}</td>
+            <td><span class="pill pill-info">${c.cycle || 'دوري'}</span></td>
+            <td><strong>${c.material_name}</strong></td>
+            <td>${c.book_qty}</td>
+            <td>${c.actual_qty}</td>
+            <td>${diffPill}</td>
+            <td>${fmt(c.diff_value)} ${cur}</td>
+            <td>${c.by}</td>
+          </tr>`;
+      }).join('')
+      : `<tr><td colspan="8" style="text-align:center;color:var(--muted);">لا توجد سجلات جرد دوري بعد</td></tr>`;
+  }
+
+  /* ================= 5. الموظفون والورديات ومعايير أوزبكستان ================= */
+  function applyShiftPreset() {
+    const preset = document.getElementById('empShiftType').value;
+    if (preset === 'صباحية مرنة') {
+      document.getElementById('empShiftStart').value = '08:00';
+      document.getElementById('empShiftEnd').value = '16:00';
+      document.getElementById('empStdHours').value = '173.3';
+    } else if (preset === 'مسائية مرنة') {
+      document.getElementById('empShiftStart').value = '15:00';
+      document.getElementById('empShiftEnd').value = '23:00';
+      document.getElementById('empStdHours').value = '173.3';
+    } else if (preset === 'وردية كاملة') {
+      document.getElementById('empShiftStart').value = '10:00';
+      document.getElementById('empShiftEnd').value = '22:00';
+      document.getElementById('empStdHours').value = '173.3';
+    }
+  }
+
+  function toggleAttTimeInputs() {
+    const st = document.getElementById('attStatus').value;
+    const isPresence = st === 'حضور وانصراف';
+    document.getElementById('attInField').style.display = isPresence ? 'flex' : 'none';
+    document.getElementById('attOutField').style.display = isPresence ? 'flex' : 'none';
+  }
+
+  function calcShiftHours(startStr, endStr) {
+    if (!startStr || !endStr) return 8;
+    const [sh, sm] = startStr.split(':').map(Number);
+    const [eh, em] = endStr.split(':').map(Number);
+    let startMin = sh * 60 + sm;
+    let endMin = eh * 60 + em;
+    if (endMin <= startMin) endMin += 24 * 60; // دعم الورديات العابرة لمنتصف الليل
+    return Math.round(((endMin - startMin) / 60) * 100) / 100;
+  }
+
+  async function submitEmployee() {
+    try {
+      await callApi('addEmployee', {
+        name: document.getElementById('empName').value,
+        job_title: document.getElementById('empRole').value,
+        base_salary: document.getElementById('empSalary').value,
+        shift_type: document.getElementById('empShiftType').value,
+        shift_start: document.getElementById('empShiftStart').value,
+        shift_end: document.getElementById('empShiftEnd').value,
+        std_monthly_hours: document.getElementById('empStdHours').value || 173.3
+      });
+      document.getElementById('empName').value = '';
+      document.getElementById('empSalary').value = '';
+      showToast('تم تسجيل الموظف ووردية العمل');
+      await loadAllData();
+    } catch (e) {
+      showToast(e.message, 'error');
+    }
+  }
+
+  async function submitAttendance() {
+    try {
+      const date = assertNotFutureDate(document.getElementById('attDate').value, 'تاريخ الدوام');
+      const empId = document.getElementById('attEmployee').value;
+      const emp = STATE.employees.find(e => e.id === empId);
+      if (!emp) throw new Error('اختر موظفاً صحيحاً');
+
+      const baseSalary = Number(emp.base_salary || 0);
+      const stdHours = Number(emp.std_monthly_hours || 173.3);
+      const hourlyRate = stdHours > 0 ? (baseSalary / stdHours) : 0;
+      const status = document.getElementById('attStatus').value;
+      const extraDed = Number(document.getElementById('attExtraDed').value || 0);
+
+      let workedHours = 0;
+      let autoDeduction = 0;
+
+      if (status === 'حضور وانصراف') {
+        const timeIn = document.getElementById('attIn').value;
+        const timeOut = document.getElementById('attOut').value;
+        workedHours = calcShiftHours(timeIn, timeOut);
+
+        // حساب التأخير مقابل بداية الوردية المحددة للموظف
+        if (emp.shift_start && timeIn) {
+          const [esh, esm] = String(emp.shift_start).split(':').map(Number);
+          const [ash, asm] = String(timeIn).split(':').map(Number);
+          const lateMins = (ash * 60 + asm) - (esh * 60 + esm);
+          if (lateMins > 10) {
+            autoDeduction = Math.round((lateMins / 60) * hourlyRate);
+          }
+        }
+      } else if (status === 'إجازة سنوية مدفوعة' || status === 'إجازة مرضية') {
+        workedHours = 8;
+        autoDeduction = 0;
+      } else if (status === 'إجازة بدون راتب' || status === 'غياب بدون عذر') {
+        workedHours = 0;
+        // يوم عمل قياسي (8 ساعات وفق معيار 40 ساعة أسبوعياً في أوزبكستان)
+        autoDeduction = Math.round(8 * hourlyRate);
+      }
+
+      const totalDed = Math.round(autoDeduction + extraDed);
+
+      await callApi('addAttendance', {
+        date: date,
+        employee_id: emp.id,
+        employee_name: emp.name,
+        status: status,
+        time_in: status === 'حضور وانصراف' ? document.getElementById('attIn').value : '-',
+        time_out: status === 'حضور وانصراف' ? document.getElementById('attOut').value : '-',
+        hours: workedHours,
+        deduction: totalDed,
+        notes: document.getElementById('attNotes').value
+      });
+
+      document.getElementById('attExtraDed').value = '0';
+      document.getElementById('attNotes').value = '';
+      showToast('تم حفظ سجل الدوام والخصومات');
+      await loadAllData();
+    } catch (e) {
+      showToast(e.message, 'error');
+    }
+  }
+
+  function renderHRAndAttendance() {
+    const cur = STATE.S.currency || 'UZS';
+    const sel = document.getElementById('attEmployee');
+    sel.innerHTML = '<option value="">-- اختر الموظف --</option>' +
+      STATE.employees.map(e => `<option value="${e.id}">${e.name} (${e.job_title || 'موظف'})</option>`).join('');
+
+    const payrollBody = document.getElementById('hrPayrollBody');
+    payrollBody.innerHTML = STATE.employees.length
+      ? STATE.employees.map(emp => {
+        const salary = Number(emp.base_salary || 0);
+        const stdHours = Number(emp.std_monthly_hours || 173.3);
+        const hourlyRate = stdHours > 0 ? Math.round(salary / stdHours) : 0;
+
+        const empAtt = STATE.attendance.filter(a => a.employee_id === emp.id);
+        const totalHours = Math.round(empAtt.reduce((s, a) => s + Number(a.hours || 0), 0) * 10) / 10;
+        const totalDed = Math.round(empAtt.reduce((s, a) => s + Number(a.deduction || 0), 0));
+        const netPay = Math.max(0, Math.round(salary - totalDed));
+
+        return `
+          <tr>
+            <td><strong>${emp.name}</strong></td>
+            <td>${emp.job_title || '-'}</td>
+            <td><span class="pill pill-info">${emp.shift_type || 'مرنة'} (${emp.shift_start || ''} - ${emp.shift_end || ''})</span></td>
+            <td>${fmt(salary)} ${cur}</td>
+            <td><strong>${fmt(hourlyRate)} ${cur}</strong></td>
+            <td>${fmtDec(totalHours, 1)} س</td>
+            <td><span class="pill ${totalDed > 0 ? 'pill-bad' : 'pill-ok'}">${fmt(totalDed)} ${cur}</span></td>
+            <td><strong>${fmt(netPay)} ${cur}</strong></td>
+          </tr>`;
+      }).join('')
+      : `<tr><td colspan="8" style="text-align:center;color:var(--muted);">لا يوجد موظفون مسجلون بعد</td></tr>`;
+
+    const attBody = document.getElementById('attendanceBody');
+    attBody.innerHTML = STATE.attendance.length
+      ? STATE.attendance.map(a => {
+        const pillCls = String(a.status).includes('غياب') || String(a.status).includes('بدون راتب')
+          ? 'pill-bad'
+          : (String(a.status).includes('إجازة') ? 'pill-warn' : 'pill-ok');
+        return `
+          <tr>
+            <td>${a.date}</td>
+            <td><strong>${a.employee_name}</strong></td>
+            <td><span class="pill ${pillCls}">${a.status}</span></td>
+            <td>${a.time_in || '-'} / ${a.time_out || '-'}</td>
+            <td>${fmtDec(a.hours || 0, 1)} س</td>
+            <td>${fmt(a.deduction || 0)} ${cur}</td>
+            <td>${a.notes || '-'}</td>
+          </tr>`;
+      }).join('')
+      : `<tr><td colspan="7" style="text-align:center;color:var(--muted);">لا توجد سجلات حضور أو إجازات</td></tr>`;
+  }
+
+  /* ================= 6. الإغلاق اليومي ================= */
   async function submitClosing() {
     try {
+      const date = assertNotFutureDate(document.getElementById('clDate').value, 'تاريخ الإغلاق');
       await callApi('submitDailyClosing', {
-        date: document.getElementById('clDate').value,
+        date: date,
         pos_sales: document.getElementById('clPos').value,
         cash_actual: document.getElementById('clCash').value,
         card_actual: document.getElementById('clCard').value,
@@ -1118,7 +1999,7 @@
         notes: document.getElementById('clNotes').value
       });
       ['clPos','clCash','clCard','clApps','clPetty','clVoids','clNotes'].forEach(id => document.getElementById(id).value = '');
-      showToast('تم حفظ الإغلاق اليومي وإرسال التقرير');
+      showToast('تم حفظ الإغلاق اليومي');
       await loadAllData();
     } catch (e) {
       showToast(e.message, 'error');
@@ -1145,7 +2026,7 @@
       : `<tr><td colspan="6" style="text-align:center;color:var(--muted);">لا توجد سجلات إغلاق</td></tr>`;
   }
 
-  /* ---- المواد الخام ---- */
+  /* ================= 7. المواد الخام ================= */
   async function submitMaterial() {
     try {
       await callApi('addMaterial', {
@@ -1179,10 +2060,8 @@
       : `<tr><td colspan="5" style="text-align:center;color:var(--muted);">لا توجد مواد خام</td></tr>`;
   }
 
-  // تهيئة حقل رابط الخادم عند فتح الصفحة
-  document.getElementById('apiEndpointInput').value = STATE.apiUrl;
-
-  if (STATE.token && STATE.apiUrl) {
+  applyMaxTodayToAllDateInputs();
+  if (STATE.token) {
     initApp();
   }
 </script>
